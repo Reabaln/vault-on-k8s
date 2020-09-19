@@ -85,9 +85,14 @@ echo -e "${Green}Create a sample app with nginx which will just return a page wi
 kubectl apply -f example-pod-spec.yaml -n secrets
 
 
-#echo -e "${Green}Patch pod with necessary annotations to use Vault sidecar ${Reset}"
-#kubectl patch deployment <MY DEPLOYMENT> --patch "$(cat patch.yaml)"
+echo -e "${Green}Patch pod with necessary annotations to use Vault sidecar ${Reset}"
+kubectl patch deployment vault-agent-example -n secrets --patch "$(cat patch-inject.yaml)"
 
-#echo -e "${Green}${Reset}"
-#kubectl port-forward pod/vault-agent-example 8080:80 -n secrets
+#echo -e "${Green} verify secrets  ${Reset}"
+#kubectl exec -it vault-agent-example-94477c95f-jgfkq -c nginx-container -n secrets -- ls -l /vault/secrets
+
+
+
+echo -e "${Green}${Reset}"
+kubectl port-forward pod/vault-agent-example 8080:80 -n secrets
 
