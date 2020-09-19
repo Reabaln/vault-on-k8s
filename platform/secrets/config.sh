@@ -59,7 +59,7 @@ vault kv put secret/myapp/config username='appuser' \
 echo -e "${Green}create a role bound to vault-auth SA${Reset}" 
 vault write auth/kubernetes/role/myapprole \
         bound_service_account_names=vault-auth \
-        bound_service_account_namespaces=vault \
+        bound_service_account_namespaces=secrets \
         policies=myapp-kv-ro \
         ttl=24h
 
@@ -88,6 +88,6 @@ kubectl apply -f example-pod-spec.yaml -n secrets
 #echo -e "${Green}Patch pod with necessary annotations to use Vault sidecar ${Reset}"
 #kubectl patch deployment <MY DEPLOYMENT> --patch "$(cat patch.yaml)"
 
-echo -e "${Green}${Reset}"
-kubectl port-forward pod/vault-agent-example 8080:80 -n secrets
+#echo -e "${Green}${Reset}"
+#kubectl port-forward pod/vault-agent-example 8080:80 -n secrets
 
