@@ -84,6 +84,10 @@ kubectl apply -f agent-autoauth-config.yaml -n secrets
 echo -e "${Green}Create a sample app with nginx which will just return a page with the secret from vault we created earlier${Reset}"
 kubectl apply -f example-pod-spec.yaml -n secrets
 
+
+#echo -e "${Green}Patch pod with necessary annotations to use Vault sidecar ${Reset}"
+#kubectl patch deployment <MY DEPLOYMENT> --patch "$(cat patch.yaml)"
+
 echo -e "${Green}${Reset}"
 kubectl port-forward pod/vault-agent-example 8080:80 -n secrets
 
